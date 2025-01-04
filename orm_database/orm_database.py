@@ -2,7 +2,7 @@ import motor.motor_asyncio
 import asyncpg
 import mariadb
 import sys
-
+from  orm_database.orm_query import *
 class MariaDB:
     def __init__(self, host:str,port:int,user:str,password:str,database:str):
         self.host=host
@@ -12,17 +12,32 @@ class MariaDB:
         self.database=database
     
 
-    async def  start(self):
+    async def start(self):
         try:
-            self.connections = mariadb.connect(
-            user="db_user",
-            password="db_user_passwd",
-            host="localhost",
-            database="employees")
+            self.db = mariadb.connect(
+            user=self.user,
+            password=self.password,
+            host=self.host,
+            database=self.database)
 
         except:
             print("Error connecting maraidb")
             sys.exit(1)
+
+
+    async  def teble_create_BaseModel(self,table:str , class_BaseModel):
+        query = query_baseModel_create_table(table,class_BaseModel)
+        cur = self.db.cursor() 
+        cur.execute(query)
+        cur.close()
+
+
+    async def teble_create(self, table: str, field: dict):
+        query = query_create_table(table,field)
+        cur = self.db.cursor() 
+        cur.execute(query)
+        cur.close()
+
 
 
 
@@ -39,48 +54,13 @@ class PostgreSQL:
 
 
     async  def teble_create_BaseModel(self,table:str , class_BaseModel):
-        query = f"CREATE TABLE {table} ("
-        result=class_BaseModel.model_json_schema()
-        for a in result['required']:
-            data = result['properties'][a]
-            try : 
-                maxLength = data['maxLength']
-                match data['type']:
-                    case 'integer':
-                        types = 'int'
-                    case 'boolean':
-                        types = 'bool'
-                    case 'number':
-                        types = 'float'
-                    case 'string':
-                        types = 'varchar'
-                uint = str(a)+" "+types+'('+str(maxLength)+')'
-                query = query  + " " + uint + " ,"
-            except :
-                match data['type']:
-                    case 'integer':
-                        types = 'int'
-                    case 'boolean':
-                        types = 'bool'
-                    case 'number':
-                        types = 'float'
-                    case 'string':
-                        types = 'varchar'
-                uint = str(a)+" "+types
-                query = query  + " " + uint + " ,"
-        query = query[:-1]
-        query = query + ")"
+        query=query_baseModel_create_table(table,class_BaseModel)
         await self.db.execute(query)
         await self.db.close()
 
 
     async def teble_create(self, table: str, field: dict):
-        query = f"CREATE TABLE {table} ("
-        filed_key = list(field.keys())
-        for a in filed_key:
-            query = query + a + " " + field[a] + " ,"
-        query = query[:-1]
-        query = query + ")"
+        query=query_create_table(table,field)
         await self.db.execute(query)
         await self.db.close()
 
