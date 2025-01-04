@@ -26,3 +26,29 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
+## create table mariadb
+
+
+```python
+from orm_database import MariaDB
+import asyncio
+from pydantic import BaseModel , Field
+
+
+db = MariaDB(host="127.0.0.1",database="login",password="",port=3306,user="root")
+
+class users(BaseModel):
+    user_rt : str = Field(varchar=20)
+    password_rt : str = Field(varchar=20)
+    email_rt : str = Field(varchar=20)
+
+
+async def main():
+    await db.start()
+    await db.teble_create_BaseModel("tes",users)
+
+
+asyncio.run(main())
+
+```
