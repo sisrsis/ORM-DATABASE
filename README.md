@@ -27,7 +27,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## create table mariadb
+## create table mariadb baseModel
 
 
 ```python
@@ -52,3 +52,38 @@ async def main():
 asyncio.run(main())
 
 ```
+
+## create table mariadb
+
+
+
+```python
+from orm_database import MariaDB
+import asyncio
+
+
+db = MariaDB(host="127.0.0.1",database="",password="",port=3306,user="root")
+
+
+
+
+async def main():
+    await db.start()
+    await db.teble_create("test",{"username":"varchar(250)","email":"varchar(250)","old":"int"})
+
+
+asyncio.run(main())
+```
+
+`test` name table
+
+| name     |   field     |
+| -------- | ----------- |
+| username | varchar(250)|
+| email    | varchar(250)|
+| old      |    int      |
+
+
+
+
+
