@@ -38,7 +38,10 @@ class MariaDB:
         cur.execute(query)
         cur.close()
 
-
+    async def insert_value(self, table: str, value: dict):
+        query = query_insert_value(table,value)
+        await self.db.execute(query)
+        await self.db.close()
 
 
 
@@ -66,18 +69,7 @@ class PostgreSQL:
 
 
     async def insert_value(self, table: str, value: dict):
-        query = f"INSERT INTO {table}  ( "
-        filed_key = list(value.keys())
-        for a in filed_key:
-            query = query + " " + a + " " + ","
-        query = query[:-1]
-        query = query + ")"
-        query = query + " VALUES ("
-        filed_value = list(value.values())
-        for a in filed_value:
-            query = query + " '" + str(a) + "' " + ","
-        query = query[:-1]
-        query = query + ")"
+        query = query_insert_value(table,value)
         await self.db.execute(query)
         await self.db.close()
 
