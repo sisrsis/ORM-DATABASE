@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
    name='orm_database',
-   version='0.3.9',
+   version='0.3.10',
    description='This module is written to launch your programs with any database you want in the shortest time ',
    license="MIT",
    author='SISRSIS',

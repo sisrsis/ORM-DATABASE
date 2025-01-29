@@ -16,10 +16,8 @@ async def main():
     db = PostgreSQL(host="127.0.0.1", user="postgres", password="", database="your_database_name")
     await db.start()
     
-    # ایجاد جدول
     await db.table_create("users", {"username": "varchar", "password": "varchar", "email": "varchar"})
     
-    # ایجاد مدل پایه
     await db.table_create_BaseModel(table="users", class_BaseModel=User)
 
 
