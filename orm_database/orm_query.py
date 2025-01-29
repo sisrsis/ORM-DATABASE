@@ -50,7 +50,7 @@ def query_create_table(table:str,field:dict):
 
 
 def query_insert_value(table:str,value:dict):
-    uery = f"INSERT INTO {table}  ( "
+    query = f"INSERT INTO {table}  ( "
     filed_key = list(value.keys())
     for a in filed_key:
         query = query + " " + a + " " + ","
@@ -63,3 +63,19 @@ def query_insert_value(table:str,value:dict):
     query = query[:-1]
     query = query + ")"
     return query
+
+def query_insert_values(table:str,value:dict):
+        query = f"INSERT INTO {table}  ( "
+        filed_key = list(value.keys())
+        for a in filed_key:
+            query = query + " " + a + " " + ","
+        query = query[:-1]
+        query = query + ")"
+        query = query + " VALUES ("
+
+        filed_value = list(value.values())
+        for a in filed_value:
+            query = query + " '" + str(a) + "' " + ","
+        query = query[:-1]
+        query = query + ")"
+        return query
