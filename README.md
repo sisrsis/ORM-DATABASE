@@ -83,5 +83,63 @@ asyncio.run(main())
 
 
 
+## insert value 
+
+```python
+from orm_database import MariaDB
+import asyncio
+from pydantic import BaseModel , Field
 
 
+db = MariaDB(host="127.0.0.1",database="login",password="12341234",port=3306,user="root")
+
+class users(BaseModel):
+    user_rt : str = Field(varchar=20)
+    password_rt : str = Field(varchar=20)
+    email_rt : str = Field(varchar=20)
+
+
+async def main():
+    data = {"user_rt":"test1","password_rt":"12341","email_rt":"test1@mail.com"}
+    await db.start()
+    await db.teble_create_BaseModel("tes",users)
+    await db.insert_values("tes",data)
+
+
+
+asyncio.run(main())
+```
+
+
+
+
+
+
+## insert value list 
+
+
+```python
+from orm_database import MariaDB
+import asyncio
+from pydantic import BaseModel , Field
+
+
+db = MariaDB(host="127.0.0.1",database="login",password="12341234",port=3306,user="root")
+
+class users(BaseModel):
+    user_rt : str = Field(varchar=20)
+    password_rt : str = Field(varchar=20)
+    email_rt : str = Field(varchar=20)
+
+
+async def main():
+    data = [{"user_rt":"test1","password_rt":"12341","email_rt":"test1@mail.com"},{"user_rt":"test2","password_rt":"12342","email_rt":"test2@mail.com"},{"user_rt":"test3","password_rt":"12343","email_rt":"test3@mail.com"}]
+    await db.start()
+    await db.teble_create_BaseModel("tes",users)
+    await db.insert_values("tes",data)
+
+
+
+asyncio.run(main())
+
+```
