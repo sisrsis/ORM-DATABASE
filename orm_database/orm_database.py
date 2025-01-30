@@ -29,21 +29,20 @@ class MariaDB:
         query = query_baseModel_create_table(table,class_BaseModel)
         cur = self.db.cursor() 
         cur.execute(query)
-        cur.close()
-
+        self.db.commit()
 
     async def teble_create(self, table: str, field: dict):
         query = query_create_table(table,field)
         cur = self.db.cursor() 
         cur.execute(query)
-        cur.close()
+        self.db.commit()
 
     async def insert_value(self, table: str, value: dict):
         query = query_insert_value(table,value)
         cur = self.db.cursor() 
         print(query)
         cur.execute(query)
-        cur.close()
+        self.db.commit()
 
 
     async def insert_values(self, table: str, values: list):
@@ -51,7 +50,7 @@ class MariaDB:
         for value in values:
             query = query_insert_values(table=table,value=value)
             cur.execute(query)
-        cur.close()
+        self.db.commit()
 
 
 class PostgreSQL:
