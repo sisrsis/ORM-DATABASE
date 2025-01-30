@@ -143,3 +143,87 @@ async def main():
 asyncio.run(main())
 
 ```
+
+
+
+
+
+# select database 
+| user_rt | password_rt |    email_rt    |
+| -----   | -----       | -------------- |
+| test1   |    12341    | test1@mail.com |
+| test2   |    12342    | test2@mail.com |
+| test3   |    12343    | test3@mail.com |
+
+```python
+from orm_database import MariaDB
+import asyncio
+from pydantic import BaseModel , Field
+
+
+db = MariaDB(host="127.0.0.1",database="login",password="12341234",port=3306,user="root")
+
+class users(BaseModel):
+    user_rt : str = Field(varchar=20)
+    password_rt : str = Field(varchar=20)
+    email_rt : str = Field(varchar=20)
+
+
+async def main():
+
+    await db.start()
+    test = await db.select_all("tes",["user_rt","password_rt","email_rt"])
+    print(test)
+
+
+
+
+asyncio.run(main())
+
+
+
+```
+# output 
+```json
+[
+{'user_rt': 'test1', 'password_rt': '12341', 'email_rt': 'test1@mail.com'},
+{'user_rt': 'test2', 'password_rt': '12342', 'email_rt': 'test2@mail.com'},
+{'user_rt': 'test3', 'password_rt': '12343', 'email_rt': 'test3@mail.com'}
+ ]
+ ```
+
+
+SELECT ONE ROW
+
+```python
+from orm_database import MariaDB
+import asyncio
+from pydantic import BaseModel , Field
+
+
+db = MariaDB(host="127.0.0.1",database="login",password="12341234",port=3306,user="root")
+
+class users(BaseModel):
+    user_rt : str = Field(varchar=20)
+    password_rt : str = Field(varchar=20)
+    email_rt : str = Field(varchar=20)
+
+
+async def main():
+
+    await db.start()
+    test = await db.select_columns("tes",{"user_rt":"test1"})
+    print(test)
+
+
+
+
+asyncio.run(main())
+
+```
+
+output
+
+```
+('test1', '12341', 'test1@mail.com')
+```
