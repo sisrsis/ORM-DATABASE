@@ -53,6 +53,38 @@ class MariaDB:
         self.db.commit()
 
 
+    async def select_all(self, table: str, filed: list, all: bool = False):
+        cur = self.db.cursor()
+        query = query_select(table=table,filed=filed,all=all)
+        cur.execute(query)
+        result = cur.fetchall()
+        print(result)
+        data = {}
+        data_row = []
+        for a in result:
+            print(a)
+            conter = 0
+            for b in a:
+                data[filed[conter]] = b
+                conter += 1
+            data_row.append(dict(data))
+        return data_row
+
+
+    async def select_columns(self, table: str, filed: dict):
+        cur = self.db.cursor()
+
+        print(query)
+        try:
+            
+            cur.execute(query,(filed[fileds[0]],))
+            row = cur.fetchone()
+            return row
+        except:
+            return None
+
+
+
 class PostgreSQL:
     def __init__(self, host: str, user: str, password: str, database: str):
         self.host = host
