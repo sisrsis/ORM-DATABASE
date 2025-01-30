@@ -65,17 +65,36 @@ def query_insert_value(table:str,value:dict):
     return query
 
 def query_insert_values(table:str,value:dict):
-        query = f"INSERT INTO {table}  ( "
-        filed_key = list(value.keys())
-        for a in filed_key:
-            query = query + " " + a + " " + ","
-        query = query[:-1]
-        query = query + ")"
-        query = query + " VALUES ("
+    query = f"INSERT INTO {table}  ( "
+    filed_key = list(value.keys())
+    for a in filed_key:
+        query = query + " " + a + " " + ","
+    query = query[:-1]
+    query = query + ")"
+    query = query + " VALUES ("
 
-        filed_value = list(value.values())
-        for a in filed_value:
-            query = query + " '" + str(a) + "' " + ","
+    filed_value = list(value.values())
+    for a in filed_value:
+        query = query + " '" + str(a) + "' " + ","
+    query = query[:-1]
+    query = query + ")"
+    return query
+
+
+# print output SELECT * FROM tes
+# print output SELECT user_rt FROM tes
+def  query_select(table:str,filed:list,all:bool=False):
+    if all == True:
+        query = "SELECT * FROM " + table
+    if all == False:
+        query = "SELECT "
+        for a in filed:
+            query = query + a + ","
         query = query[:-1]
-        query = query + ")"
+        query = query + " FROM " + table
         return query
+    
+
+
+
+    
