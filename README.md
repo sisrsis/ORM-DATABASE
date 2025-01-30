@@ -184,7 +184,7 @@ asyncio.run(main())
 
 ```
 # output 
-```json
+```
 [
 {'user_rt': 'test1', 'password_rt': '12341', 'email_rt': 'test1@mail.com'},
 {'user_rt': 'test2', 'password_rt': '12342', 'email_rt': 'test2@mail.com'},
