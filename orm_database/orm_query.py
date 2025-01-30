@@ -97,4 +97,10 @@ def  query_select(table:str,filed:list,all:bool=False):
 
 
 
-    
+def select_columns(table:str,filed:dict):
+    query = "SELECT * "
+    query = query + " FROM "
+    query = query + table + " WHERE "
+    fileds = list(filed.keys())
+    query = query + fileds[0]+"="+"%s"
+    return query

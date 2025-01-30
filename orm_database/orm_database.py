@@ -73,8 +73,8 @@ class MariaDB:
 
     async def select_columns(self, table: str, filed: dict):
         cur = self.db.cursor()
-
-        print(query)
+        query = select_columns(table=table,filed=filed)
+        fileds = list(filed.keys())
         try:
             
             cur.execute(query,(filed[fileds[0]],))
