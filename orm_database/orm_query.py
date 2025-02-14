@@ -1,41 +1,37 @@
-
-
 def query_baseModel_create_table(table,class_BaseModel):
     query = f"CREATE TABLE {table} ("
     result=class_BaseModel.model_json_schema()
+    print(result)
+    type=""
     for a in result['required']:
         data = result['properties'][a]
-        try : 
-            maxLength = data['maxLength']
-            match data['type']:
-                case 'integer':
-                    types = 'int'
-                case 'boolean':
-                    types = 'bool'
-                case 'number':
-                    types = 'float'
-                case 'string':
-                    types = 'varchar'
-            if types == 'varchar':
-                uint = str(a)+" "+types+"("+data["varchar"]+")"+'('+str(maxLength)+')'
-                query = query  + " " + uint + " ,"
-            else:
-                uint = str(a)+" "+types+'('+str(maxLength)+')'
-                query = query  + " " + uint + " ,"
-        except :
-            match data['type']:
-                case 'integer':
-                    types = 'int'
-                case 'boolean':
-                    types = 'bool'
-                case 'number':
-                    types = 'float'
-                case 'string':
-                    types = 'varchar'
-            uint = str(a)+" "+types +"("+str(data["varchar"])+")"
-            query = query  + " " + uint + " ,"
+        print(data)
+        if len(data.keys()) == 2:
+            match data["type"]:
+                case "string":
+                    type = "varchar"
+                case "number":
+                    type = "float"
+                case "integer":
+                    type = "int" 
+                case "boolean":
+                    type = "bool"
+            query = query + a + " " + type + ","
+        else :
+            match data["type"]:
+                case "string":
+                    type = f"varchar({data["varchar"]})"
+                case "number":
+                    type = "float"
+                case "integer":
+                    type = "int" 
+                case "boolean":
+                    type = "bool"
+            
+            query = query + a + " " + type + "," 
     query = query[:-1]
     query = query + ")"
+    print(query)
     return query
 
 def query_create_table(table:str,field:dict):
