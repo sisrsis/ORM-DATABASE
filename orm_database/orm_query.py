@@ -1,11 +1,9 @@
 def query_baseModel_create_table(table,class_BaseModel):
     query = f"CREATE TABLE {table} ("
     result=class_BaseModel.model_json_schema()
-    print(result)
     type=""
     for a in result['required']:
         data = result['properties'][a]
-        print(data)
         if len(data.keys()) == 2:
             match data["type"]:
                 case "string":
@@ -31,7 +29,6 @@ def query_baseModel_create_table(table,class_BaseModel):
             query = query + a + " " + type + "," 
     query = query[:-1]
     query = query + ")"
-    print(query)
     return query
 
 def query_create_table(table:str,field:dict):
