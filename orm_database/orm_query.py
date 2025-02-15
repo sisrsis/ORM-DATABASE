@@ -103,3 +103,13 @@ def select_columns(table:str,filed:dict):
     fileds = list(filed.keys())
     query = query + fileds[0]+"="+"%s"
     return query
+
+
+# DELETE FROM pending_order WHERE users='s1';
+def query_delete_one(table:str,filed:dict):
+    query = f"DELETE FROM {table} WHERE"
+    key = filed.keys()
+    key = list(key)
+    key = key[0]
+    query = query + " " +  str(key) + "="+ str(filed[key])
+    return query

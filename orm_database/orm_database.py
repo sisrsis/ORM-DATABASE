@@ -154,6 +154,13 @@ class PostgreSQL:
             return None
 
 
+    async def delete_one(self,table:str,filed:dict):
+        query = query_delete_one(table=table,filed=filed)
+        await  self.db.execute(query)
+
+
+
+
 class Mongodb:
     def __init__(self, url, name):
         self.url = url
