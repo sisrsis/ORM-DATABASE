@@ -231,4 +231,26 @@ output
 ```
 
 
+## edit delete postgres
+```python
+from orm_database import  PostgreSQL
+import asyncio
 
+
+postgres = PostgreSQL(host="127.0.0.1",user="postgres",database="wallet",password="123412341234")
+
+
+
+
+
+async def main():
+
+    await postgres.start()
+
+
+
+    await postgres.delete_one("pending_order",{"id":1})
+    
+    await postgres.update_one("pending_order1",{"id":1},{"users":"sis"})
+
+```
