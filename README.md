@@ -51,6 +51,7 @@ async def main():
 asyncio.run(main())
 
 ```
+**‌Tip: When using MariaDB, you must specify a varchar value, otherwise you will get an error.**
 
 ## create table mariadb
 
