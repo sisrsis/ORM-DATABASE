@@ -170,10 +170,15 @@ class PostgreSQL:
             return True
         except:
             return False
-        
+    
 
-
-
+    async def find_list(self,table:str,find:dict):
+        query = query_find_list(table=table,find=find)
+        data = await self.db.fetch(query)
+        result =  []
+        for a in data:
+            result.append(dict(a))
+        return result
 
 class Mongodb:
     def __init__(self, url, name):

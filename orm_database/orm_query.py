@@ -126,3 +126,12 @@ def query_update_one(table:str,find:dict,value:dict):
     key_v = key_v[0]
     query = query+ " " +  str(key_v)+ "='" + str(value[key_v]) + "' " +"WHERE" + " " +  str(key) + "="+ str(find[key]) 
     return query
+
+
+
+def query_find_list(table:str,find:dict):
+    query =  f"SELECT * FROM {table} WHERE"
+    key =  list(find.keys())
+    key = key[0]
+    query = f"{query} {key}='{find[key]}'"
+    return query
