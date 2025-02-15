@@ -100,7 +100,6 @@ class PostgreSQL:
         try:
             query=query_baseModel_create_table(table,class_BaseModel)
             await self.db.execute(query)
-            await self.db.close()
             return True
         except:
             return False
@@ -108,20 +107,17 @@ class PostgreSQL:
     async def teble_create(self, table: str, field: dict):
         query=query_create_table(table,field)
         await self.db.execute(query)
-        await self.db.close()
 
 
     async def insert_value(self, table: str, value: dict):
         query = query_insert_value(table,value)
         await self.db.execute(query)
-        await self.db.close()
 
 
     async def insert_values(self, table: str, values: list):
         for value in values:
             query = query_insert_values(table=table,value=value)
             await self.db.execute(query)
-        await self.db.close()
 
     async def select_all(self, table: str, filed: list, all: bool = False):
         if all == True:
@@ -145,7 +141,6 @@ class PostgreSQL:
                 data[filed[conter]] = b
                 conter += 1
             data_row.append(dict(data))
-        await self.db.close()
         print(data_row)
         return data_row
 
