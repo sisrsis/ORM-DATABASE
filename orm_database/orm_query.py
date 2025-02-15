@@ -1,8 +1,10 @@
 def query_baseModel_create_table(table,class_BaseModel):
     query = f"CREATE TABLE {table} ("
     result=class_BaseModel.model_json_schema()
+    list_keys = result['properties']
+    list_keys = list(list_keys.keys())
     type=""
-    for a in result['required']:
+    for a in list_keys:
         data = result['properties'][a]
         if len(data.keys()) == 2:
             match data["type"]:
@@ -16,17 +18,21 @@ def query_baseModel_create_table(table,class_BaseModel):
                     type = "bool"
             query = query + a + " " + type + ","
         else :
-            match data["type"]:
-                case "string":
-                    type = f"varchar({data["varchar"]})"
-                case "number":
-                    type = "float"
-                case "integer":
-                    type = "int" 
-                case "boolean":
-                    type = "bool"
-            
-            query = query + a + " " + type + "," 
+            try:
+                type = data["default"]
+                query = query + a + " " + type + "," 
+            except:    
+                match data["type"]:
+                    case "string":
+                        type = f"varchar({data["varchar"]})"
+                    case "number":
+                        type = "float"
+                    case "integer":
+                        type = "int" 
+                    case "boolean":
+                        type = "bool"
+                
+                query = query + a + " " + type + "," 
     query = query[:-1]
     query = query + ")"
     return query
