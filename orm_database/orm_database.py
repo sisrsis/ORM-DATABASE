@@ -58,11 +58,9 @@ class MariaDB:
         query = query_select(table=table,filed=filed,all=all)
         cur.execute(query)
         result = cur.fetchall()
-        print(result)
         data = {}
         data_row = []
         for a in result:
-            print(a)
             conter = 0
             for b in a:
                 data[filed[conter]] = b
@@ -129,7 +127,6 @@ class PostgreSQL:
             query = query[:-1]
             query = query + " FROM " + table
 
-        print(query)
         stmt = await self.db.prepare(query)
         # for a in stmt:
         result = list(await stmt.fetch())
@@ -141,7 +138,6 @@ class PostgreSQL:
                 data[filed[conter]] = b
                 conter += 1
             data_row.append(dict(data))
-        print(data_row)
         return data_row
 
 
@@ -231,4 +227,3 @@ class Mongodb:
     async def delete_one(self, find: dict, collection: str):
         coll = self.database[collection]
         result = coll.delete_one(find)
-        print(result)
