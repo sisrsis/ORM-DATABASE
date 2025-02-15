@@ -254,3 +254,17 @@ async def main():
     await postgres.update_one("pending_order1",{"id":1},{"users":"sis"})
 
 ```
+
+## find list 
+
+```python
+data = await postgres.find_list("test",{'username':'s1'})
+```
+### output
+```json
+[
+ {'id': 13, 'username': 's1', 'market': 'BTC', 'price':97596.33},
+ {'id': 14, 'username': 's1', 'market': 'BTC', 'price':97596.33}
+]
+
+```
