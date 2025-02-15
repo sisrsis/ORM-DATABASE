@@ -97,10 +97,13 @@ class PostgreSQL:
 
 
     async  def teble_create_BaseModel(self,table:str , class_BaseModel):
-        query=query_baseModel_create_table(table,class_BaseModel)
-        await self.db.execute(query)
-        await self.db.close()
-
+        try:
+            query=query_baseModel_create_table(table,class_BaseModel)
+            await self.db.execute(query)
+            await self.db.close()
+            return True
+        except:
+            return False
 
     async def teble_create(self, table: str, field: dict):
         query=query_create_table(table,field)
