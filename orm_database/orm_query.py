@@ -113,3 +113,16 @@ def query_delete_one(table:str,filed:dict):
     key = key[0]
     query = query + " " +  str(key) + "="+ str(filed[key])
     return query
+
+
+
+def query_update_one(table:str,find:dict,value:dict):
+    query = f"UPDATE  {table} SET"
+    key = find.keys()
+    key = list(key)
+    key = key[0]
+    key_v = value.keys()
+    key_v = list(key_v)
+    key_v = key_v[0]
+    query = query+ " " +  str(key_v)+ "='" + str(value[key_v]) + "' " +"WHERE" + " " +  str(key) + "="+ str(find[key]) 
+    return query

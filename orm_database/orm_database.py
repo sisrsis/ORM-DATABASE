@@ -156,7 +156,21 @@ class PostgreSQL:
 
     async def delete_one(self,table:str,filed:dict):
         query = query_delete_one(table=table,filed=filed)
-        await  self.db.execute(query)
+        try:
+            await self.db.execute(query)
+            return True
+        except:
+            return False
+        
+
+    async def update_one(self,table:str,find:dict,value:dict):
+        query = query_update_one(table=table,find=find,value=value)
+        try:
+            await self.db.execute(query)
+            return True
+        except:
+            return False
+        
 
 
 
