@@ -37,6 +37,7 @@ from pydantic import BaseModel , Field
 db = MariaDB(host="127.0.0.1",database="login",password="",port=3306,user="root")
 
 class users(BaseModel):
+    id : int = Field("SERIAL PRIMARY KEY")
     user_rt : str = Field(varchar=20)
     password_rt : str = Field(varchar=20)
     email_rt : str = Field(varchar=20)
@@ -227,3 +228,6 @@ output
 ```
 ('test1', '12341', 'test1@mail.com')
 ```
+
+
+
