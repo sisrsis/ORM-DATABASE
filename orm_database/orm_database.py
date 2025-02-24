@@ -120,7 +120,6 @@ class PostgreSQL:
 
     async def insert_values_truple(self, table: str, key:dict,value:list):
         query =   query_insert_values_truple(table=table,key=key)
-        print(query)
         await self.db.executemany(query,value)
 
     async def copy_records_to_table(self, table: str, value:list):
