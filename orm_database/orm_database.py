@@ -117,6 +117,17 @@ class PostgreSQL:
             query = query_insert_values(table=table,value=value)
             await self.db.execute(query)
 
+
+    async def insert_values_truple(self, table: str, key:dict,value:list):
+        query =   query_insert_values_truple(table=table,key=key)
+        print(query)
+        await self.db.executemany(query,value)
+
+    async def copy_records_to_table(self, table: str, value:list):
+        await self.db.copy_records_to_table(table,records=value)
+        
+
+
     async def select_all(self, table: str, filed: list, all: bool = False):
         if all == True:
             query = "SELECT * FROM " + table

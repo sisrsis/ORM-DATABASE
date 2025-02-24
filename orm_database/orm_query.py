@@ -80,6 +80,26 @@ def query_insert_values(table:str,value:dict):
     return query
 
 
+
+def query_insert_values_truple(table:str,key:dict):
+    query = f"INSERT INTO {table}  ( "
+    filed_key = list(key.keys())
+    for a in filed_key:
+        query = query + " " + a + " " + ","
+    query = query[:-1]
+    query = query + ")"
+    query = query + " VALUES ("
+
+    filed_value = list(key.values())
+    namber = 1
+    for a in filed_value:
+        
+        query = query + " " + "$" + str(namber) + " " + ","
+        namber = namber + 1
+    query = query[:-1]
+    query = query + ")"
+    return query
+
 # print output SELECT * FROM tes
 # print output SELECT user_rt FROM tes
 def  query_select(table:str,filed:list,all:bool=False):

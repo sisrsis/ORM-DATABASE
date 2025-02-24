@@ -268,3 +268,58 @@ data = await postgres.find_list("test",{'username':'s1'})
 ]
 
 ```
+
+## insert value list truple 
+
+
+```python
+from orm_database import PostgreSQL
+import asyncio
+from pydantic import BaseModel , Field
+
+
+db = PostgreSQL(host="127.0.0.1",database="test",password="12341234",user="postgres")
+
+class users(BaseModel):
+    user_rt : str = Field(varchar=20)
+    password_rt : str = Field(varchar=20)
+    email_rt : str = Field(varchar=20)
+
+
+async def main():
+    data = [("test1","12342","test4@mail.com"),("test2","12342","test2@mail.com"),("test3","12343","test3@mail.com")]
+    key = {"user_rt":"","password_rt":"","email_rt":""}
+    await db.start()
+    await db.teble_create_BaseModel("tes",users)
+    await db.insert_values_truple("tes",key=key,value=data)
+
+
+asyncio.run(main())
+```
+
+
+## copy records to table 
+```python
+from orm_database import PostgreSQL
+import asyncio
+from pydantic import BaseModel , Field
+
+
+db = PostgreSQL(host="127.0.0.1",database="test",password="12341234",user="postgres")
+
+class users(BaseModel):
+    user_rt : str = Field(varchar=20)
+    password_rt : str = Field(varchar=20)
+    email_rt : str = Field(varchar=20)
+
+
+async def main():
+    data = [("test1","12342","test4@mail.com"),("test2","12342","test2@mail.com"),("test3","12343","test3@mail.com")]
+    key = {"user_rt":"","password_rt":"","email_rt":""}
+    await db.start()
+    await db.teble_create_BaseModel("tes",users)
+    await db.copy_records_to_table(table="tes",value=data)
+
+
+asyncio.run(main())
+```
