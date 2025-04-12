@@ -24,7 +24,7 @@ def query_baseModel_create_table(table,class_BaseModel):
             except:    
                 match data["type"]:
                     case "string":
-                        type = f"varchar({data["varchar"]})"
+                        type = f"varchar({data['varchar']})"
                     case "number":
                         type = "float"
                     case "integer":
