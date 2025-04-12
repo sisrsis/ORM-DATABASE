@@ -40,7 +40,6 @@ class MariaDB:
     async def insert_value(self, table: str, value: dict):
         query = query_insert_value(table,value)
         cur = self.db.cursor() 
-        print(query)
         cur.execute(query)
         self.db.commit()
 
